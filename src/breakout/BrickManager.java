@@ -22,17 +22,21 @@ public class BrickManager {
     }
 
     public void generateBricks(){
-        int numBricks = 20;
-        double x = 40;
-        double y = 40;
-        for (int i = 0; i < numBricks; i++){
-            x = x + 50;
-            double height = 60;
-            double width = 80;
+        double x = 10;
+        double y = 10;
+        double height = 60;
+        double width = 80;
+       
+        for (int i = 0; i < 4; i++){
+            y = y + 45;
+            x = 10;
+            for(int j = 0; j < 5; j++){
             Brick brick = new Brick(x,y,height, width);
+            x = x + 50;
             brick.setPosition(x, y);
             canvas.add(brick);
             bricks.add(brick);
+            }
 
         }
     }
