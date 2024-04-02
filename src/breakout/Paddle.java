@@ -22,6 +22,7 @@ public class Paddle{
     public void addToCanvas(CanvasWindow canvas) {
         canvas.add(paddle);
     }
+    
 
     
 }

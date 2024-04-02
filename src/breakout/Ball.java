@@ -25,6 +25,7 @@ public class Ball {
         this.centerY = centerY;
         this.maxX = maxX;
         this.maxY = maxY;
+        
 
     }
 
@@ -40,6 +41,8 @@ public class Ball {
     public boolean updatePosition() {
         centerX = centerX + xVelocity;
         centerY = centerY + yVelocity;
+
+        
 
         if(centerX + 40 > 600 || centerX + 40 < 0){
             xVelocity = xVelocity * -1;
