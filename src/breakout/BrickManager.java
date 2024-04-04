@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsGroup;
-import java.util.Random;
 
 public class BrickManager {
 /*
@@ -41,9 +39,9 @@ public class BrickManager {
         }
     }
 
-    private void popBrick(Brick brick) {
+    void popBrick(Brick brick) {
         canvas.remove(brick);
-        brick.remove(brick);
+        bricks.remove(brick);
     }
 
     public void removeAllBricks(){
@@ -53,9 +51,13 @@ public class BrickManager {
         bricks.clear();
     }
 
+    public boolean brickStillExist() {
+        return bricks.size() > 0;
+    }
 
-
-
+    public int getNumberOfBricks() {
+        return bricks.size();
+    }
 
     
 }

@@ -1,6 +1,7 @@
 package breakout;
 import java.awt.Color;
 
+import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Rectangle;
 
@@ -12,37 +13,17 @@ import edu.macalester.graphics.Rectangle;
  * 
  */
 
-public class Brick extends GraphicsGroup {
+ public class Brick extends Rectangle{
 
-    private double x;
-    private double y;
-    private double height;
-    private double width;
-    public static final int NUM_LAYERS = 5;
-    public static final Color BRICK_COLOR = new Color(201, 150, 216, 55);
 
  /**
-  * Constructs a bubble centered on the center X/Y with the specified width an 
+  * Constructs a brick centered on the center X/Y with the specified width and height
   */
+
     public Brick(double x, double y, double width, double height){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x,y,width, height);
         this.setPosition(x,y);
-        createBrick();
-        
-    }
-
-    private void createBrick(){
-        for(int i = 0; i < NUM_LAYERS; i++){
-            Rectangle rectangle = new Rectangle(x,y,width,height);
-            rectangle.setFillColor(BRICK_COLOR);
-            rectangle.setFilled(true);
-            rectangle.setStroked(false);
-            add(rectangle);
-        }
 
     }
 
-}
+ }
