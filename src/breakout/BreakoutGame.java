@@ -58,16 +58,33 @@ public class BreakoutGame {
         boolean stillGoing = ball.checkCollision(canvas);
 
         if(!stillGoing){
-        looseLife();
+        lostLife();
         }
-        roundOver();
+
         });
 
 
     }
 
-    public void looseLife(){
+    public void lostLife(){
         lives --;
+        
+        GraphicsText lose = new GraphicsText();
+        lose.setText("Aww, you lost!");
+
+        GraphicsText win = new GraphicsText();
+        win.setText("Congrats! You won!");
+
+        if(lives == 0){
+            canvas.add(lose);
+            canvas.pause(500);
+            canvas.closeWindow();
+        }
+
+        if(lives != 0 && brickManager.getNumberOfBricks() == 0){
+            canvas.removeAll();
+            canvas.add(win);
+        }
     }
 
     
@@ -111,25 +128,6 @@ public class BreakoutGame {
         }
     }
 
-    /*
-     * Logic for in the game is over!
-     */
-    public void roundOver(){
-        GraphicsText lose = new GraphicsText();
-        lose.setText("Aww, you lost!");
-
-        GraphicsText win = new GraphicsText();
-        win.setText("Congrats! You won!");
-
-        if(lives == 0){
-            canvas.add(lose);
-        }
-
-        if(lives != 0 && brickManager.getNumberOfBricks() == 0){
-            canvas.removeAll();
-            canvas.add(win);
-        }
-    }
     }
 
 
