@@ -45,7 +45,7 @@ public class BrickManager {
         }
     }
 
-    /*
+/*
  * Removes the brick from the wall
  */
 
@@ -54,12 +54,12 @@ public class BrickManager {
         bricks.remove(brick);
     }
 
+/*
+ * Gets the specific brick that was hit so that it can be removed
+ */
+
     public Brick getBrick(GraphicsObject brick){
         return bricks.get(bricks.indexOf(brick));
-    }
-
-    public boolean brickStillExist() {
-        return bricks.size() > 0;
     }
 
     public int getNumberOfBricks() {

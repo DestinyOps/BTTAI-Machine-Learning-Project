@@ -68,7 +68,7 @@ public class BreakoutGame {
 
     public void lostLife(){
         lives --;
-        
+
         GraphicsText lose = new GraphicsText();
         lose.setText("Aww, you lost!");
 
@@ -88,7 +88,6 @@ public class BreakoutGame {
     }
 
     
-
 
     public void run(){
 
