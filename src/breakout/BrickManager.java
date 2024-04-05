@@ -1,14 +1,14 @@
 package breakout;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.GraphicsObject;
 
 public class BrickManager {
-/*
- * Manages how the bricks are created might delete idk?
- */
 
     private CanvasWindow canvas;
     private List<Brick> bricks;
@@ -19,17 +19,23 @@ public class BrickManager {
         this.canvas = canvas;
     }
 
+    /*
+ * Genereates the brick wall
+ */
     public void generateBricks(){
         double x = 10;
         double y = 10;
-        double height = 60;
-        double width = 80;
+        double height = 40;
+        double width = 40;
+        Random rand = new Random();
+        
        
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 7; i++){
             y = y + 45;
             x = 10;
-            for(int j = 0; j < 5; j++){
-            Brick brick = new Brick(x,y,height, width);
+            Color color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+            for(int j = 0; j < 8; j++){
+            Brick brick = new Brick(x,y,width, height, color);
             x = x + 50;
             brick.setPosition(x, y);
             canvas.add(brick);
@@ -39,16 +45,17 @@ public class BrickManager {
         }
     }
 
-    void popBrick(Brick brick) {
+    /*
+ * Removes the brick from the wall
+ */
+
+    public void popBrick(Brick brick) {
         canvas.remove(brick);
         bricks.remove(brick);
     }
 
-    public void removeAllBricks(){
-        for (Brick brick: bricks){
-            canvas.remove(brick);
-        }
-        bricks.clear();
+    public Brick getBrick(GraphicsObject brick){
+        return bricks.get(bricks.indexOf(brick));
     }
 
     public boolean brickStillExist() {

@@ -5,7 +5,6 @@ import java.awt.Color;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
-import edu.macalester.graphics.Rectangle;
 
 /*
  * It doesn't quite work all the way but it has the spirit
@@ -14,16 +13,12 @@ import edu.macalester.graphics.Rectangle;
 /*
  * DESTINY OSEMWENGIE
  * 4 - 4 - 2024
- * HELP FROM: WILLIAM, RAMA, SAMIRA, STEPHANIE
+ * HELP FROM: WILLIAM, RAMA, SAMIRA, STEPHANIE, COURTNEYY!!!
  */
 
 public class BreakoutGame {
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
-    private double x;
-    private double y;
-    private double height;
-    private double width;
     public static final int NUM_LAYERS = 10;
     public static final Color BRICK_COLOR = new Color(201, 150, 216, 55);
 
@@ -45,7 +40,7 @@ public class BreakoutGame {
 
     public BreakoutGame() {
         canvas = new CanvasWindow("Breakout!", CANVAS_WIDTH, CANVAS_HEIGHT);
-        ball = new Ball(CANVAS_HEIGHT/2, CANVAS_HEIGHT/2, 1, 1, CANVAS_WIDTH, CANVAS_HEIGHT);
+        ball = new Ball(CANVAS_HEIGHT/2, CANVAS_HEIGHT/2, 5, 7, CANVAS_WIDTH, CANVAS_HEIGHT);
         ball.addToCanvas(canvas);
 
         paddle = new Paddle(30,20,CANVAS_WIDTH,CANVAS_HEIGHT);
@@ -60,41 +55,61 @@ public class BreakoutGame {
         canvas.animate(event -> {
         run();
         ball.updatePosition();
-        ball.collision(ball, canvas);
-        ball.checkCollision(ball, canvas);
+        boolean stillGoing = ball.checkCollision(canvas);
+
+        if(!stillGoing){
+        looseLife();
+        }
+        roundOver();
         });
 
-        createBrick();
 
     }
-    
-    /*
-     * Creates the bricks which NUM_LAYER layers
-     */
-    private void createBrick(){
-        
-        for(int i = 0; i < NUM_LAYERS; i++){
-            Rectangle rectangle = new Rectangle(x,y,width,height);
-            rectangle.setFillColor(BRICK_COLOR);
-            rectangle.setFilled(true);
-            rectangle.setStroked(false);
-            canvas.add(rectangle);
-        }
+
+    public void looseLife(){
+        lives --;
     }
+
+    
 
 
     public void run(){
 
-        GraphicsObject bottomBoundary = canvas.getElementAt(ball.getballCenterX(), ball.getballCenterY());
-        if (bottomBoundary instanceof Rectangle && ball.getballCenterY() >= canvas.getHeight() * 0.5){
+        GraphicsText lives = new GraphicsText("Heelo");
+        lives.setFillColor(Color.BLACK);
+        lives.setFontSize(48);
+        lives.setPosition(300,200);
+
+        GraphicsObject bottomBoundary = canvas.getElementAt(ball.getballCenterX() + ball.getRadius(), ball.getballCenterY() + ball.getRadius());
+        GraphicsObject topBoundary = canvas.getElementAt(ball.getballCenterX() - ball.getRadius(), ball.getballCenterY() - ball.getRadius());
+        GraphicsObject leftBoundary = canvas.getElementAt(ball.getballCenterX() - ball.getRadius(), ball.getballCenterY() + ball.getRadius());
+        GraphicsObject rightBoundary = canvas.getElementAt(ball.getballCenterX() + ball.getRadius(), ball.getballCenterY() - ball.getRadius());
+
+        if(topBoundary != null && topBoundary.getClass().getName() != "edu.macalester.graphics.Ellispe"){
             ball.reverseY();
+            removeBrick(topBoundary); 
         }
-        if (bottomBoundary instanceof Brick && ball.getballCenterY() >= canvas.getHeight() * 0.5){
+        else if(bottomBoundary != null && bottomBoundary.getClass().getName() == "edu.macalester.graphics.Rectangle"){
             ball.reverseY();
+            removeBrick(bottomBoundary);
         }
-        roundOver();
+        else if(leftBoundary != null && leftBoundary.getClass().getName() != "edu.macalester.graphics.Ellispe"){
+            ball.reverseX();
+            removeBrick(leftBoundary);
+        }
+        else if(rightBoundary != null && rightBoundary.getClass().getName() != "edu.macalester.graphics.Ellispe"){
+            ball.reverseX();
+            removeBrick(rightBoundary);
+        }
     }
 
+    public void removeBrick(GraphicsObject boundary){
+
+    if(boundary.getClass().getName() == "breakout.Brick"){
+       Brick hitBrick = brickManager.getBrick(boundary);
+       brickManager.popBrick(hitBrick);
+        }
+    }
 
     /*
      * Logic for in the game is over!
