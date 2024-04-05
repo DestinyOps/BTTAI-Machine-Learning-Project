@@ -7,7 +7,7 @@ import edu.macalester.graphics.CanvasWindow;
 
 public class BrickManager {
 /*
- * boxGroup makes it one largers block that contains all the smaller blocks
+ * Manages how the bricks are created might delete idk?
  */
 
     private CanvasWindow canvas;

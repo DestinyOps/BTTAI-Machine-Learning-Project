@@ -7,7 +7,15 @@ import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Rectangle;
 
+/*
+ * It doesn't quite work all the way but it has the spirit
+ */
 
+/*
+ * DESTINY OSEMWENGIE
+ * 4 - 4 - 2024
+ * HELP FROM: WILLIAM, RAMA, SAMIRA, STEPHANIE
+ */
 
 public class BreakoutGame {
     private static final int CANVAS_WIDTH = 600;
@@ -16,7 +24,7 @@ public class BreakoutGame {
     private double y;
     private double height;
     private double width;
-    public static final int NUM_LAYERS = 5;
+    public static final int NUM_LAYERS = 10;
     public static final Color BRICK_COLOR = new Color(201, 150, 216, 55);
 
 
@@ -26,6 +34,10 @@ public class BreakoutGame {
     private Paddle paddle;
     private int lives = 3;
 
+
+/*
+ * Place to actually run the game
+ */
       public static void main(String[] args){
         BreakoutGame game = new BreakoutGame();
         game.run();
@@ -55,8 +67,12 @@ public class BreakoutGame {
         createBrick();
 
     }
-
+    
+    /*
+     * Creates the bricks which NUM_LAYER layers
+     */
     private void createBrick(){
+        
         for(int i = 0; i < NUM_LAYERS; i++){
             Rectangle rectangle = new Rectangle(x,y,width,height);
             rectangle.setFillColor(BRICK_COLOR);
@@ -80,9 +96,12 @@ public class BreakoutGame {
     }
 
 
+    /*
+     * Logic for in the game is over!
+     */
     public void roundOver(){
         GraphicsText lose = new GraphicsText();
-        lose.setText("Haha! You lost! Loser >:)");
+        lose.setText("Aww, you lost!");
 
         GraphicsText win = new GraphicsText();
         win.setText("Congrats! You won!");
