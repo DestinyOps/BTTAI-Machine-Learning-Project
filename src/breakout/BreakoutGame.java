@@ -27,7 +27,8 @@ public class BreakoutGame {
     private Ball ball;
     private  BrickManager brickManager;
     private Paddle paddle;
-    private int lives = 3;
+    private int livesss = 3;
+    private GraphicsText lives, lose, win;
 
 
 /*
@@ -42,6 +43,23 @@ public class BreakoutGame {
         canvas = new CanvasWindow("Breakout!", CANVAS_WIDTH, CANVAS_HEIGHT);
         ball = new Ball(CANVAS_HEIGHT/2, CANVAS_HEIGHT/2, 5, 7, CANVAS_WIDTH, CANVAS_HEIGHT);
         ball.addToCanvas(canvas);
+
+        lives = new GraphicsText("Lives: " + livesss);
+        lives.setFillColor(Color.BLACK);
+        lives.setFontSize(24);
+        lives.setPosition(25,25);
+        canvas.add(lives);
+
+        lose = new GraphicsText("Aww, you lost!");
+        lose.setFillColor(Color.BLACK);
+        lose.setFontSize(48);
+        lose.setPosition(100,400);
+
+        win = new GraphicsText("You Won!");
+        win.setFillColor(Color.BLACK);
+        win.setFontSize(48);
+        win.setPosition(25,25);
+        
 
         paddle = new Paddle(30,20,CANVAS_WIDTH,CANVAS_HEIGHT);
         paddle.addToCanvas(canvas);
@@ -59,6 +77,7 @@ public class BreakoutGame {
 
         if(!stillGoing){
         lostLife();
+        lives.setText("Lives: " + livesss);
         }
 
         });
@@ -67,21 +86,15 @@ public class BreakoutGame {
     }
 
     public void lostLife(){
-        lives --;
+        livesss --;
 
-        GraphicsText lose = new GraphicsText();
-        lose.setText("Aww, you lost!");
 
-        GraphicsText win = new GraphicsText();
-        win.setText("Congrats! You won!");
-
-        if(lives == 0){
+        if(livesss == 0){
+            canvas.removeAll();
             canvas.add(lose);
-            canvas.pause(500);
-            canvas.closeWindow();
         }
 
-        if(lives != 0 && brickManager.getNumberOfBricks() == 0){
+        if(livesss != 0 && brickManager.getNumberOfBricks() == 0){
             canvas.removeAll();
             canvas.add(win);
         }
@@ -91,10 +104,6 @@ public class BreakoutGame {
 
     public void run(){
 
-        GraphicsText lives = new GraphicsText("Heelo");
-        lives.setFillColor(Color.BLACK);
-        lives.setFontSize(48);
-        lives.setPosition(300,200);
 
         GraphicsObject bottomBoundary = canvas.getElementAt(ball.getballCenterX() + ball.getRadius(), ball.getballCenterY() + ball.getRadius());
         GraphicsObject topBoundary = canvas.getElementAt(ball.getballCenterX() - ball.getRadius(), ball.getballCenterY() - ball.getRadius());
